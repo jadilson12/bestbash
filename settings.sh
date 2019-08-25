@@ -79,3 +79,20 @@ export HISTFILESIZE=${HISTSIZE} # bash will remember N commands
 export HISTCONTROL=ignoreboth   # ingore duplicates and spaces
 export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
 #}}}
+
+if [ -f `which powerline-daemon` ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  . /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
+cat <<-'EOF' > ~/.config/powerline/config.json
+{
+    "ext": {
+        "shell": {
+            "theme": "default_leftonly"
+        }
+    }
+}
+EOF

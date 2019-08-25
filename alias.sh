@@ -31,6 +31,8 @@ alias ping='ping -c 5'
 alias c='clear && clear'
 alias .bashrc="vim ~/.bashrc"
 alias exho='echo'
+alias gcp='git cherry-pick'
+
 #}}}
 # PRIVILEGED ACCESS {{{
 if ! $_isroot; then
@@ -42,7 +44,6 @@ if ! $_isroot; then
   alias halt='sudo halt'
   alias powertop='sudo powertop'
 fi
-#}}}
 # PACMAN ALIASES {{{
 # we're on ARCH
 if $_isarch; then
@@ -78,8 +79,6 @@ alias lr='ls -R'                    # recursive ls
 alias ll='ls -alh'
 alias la='ll -A'
 alias lm='la | less'
-#}}}
-#}}}
 
 
 #alias for activating env1
@@ -89,3 +88,17 @@ alias notes='vim ~/notes.txt'
 alias speedtest=~/speedtest
 alias utime='sudo ntpdate pool.ntp.org'
 alias sshlogin='ssh -i ~/sshkey/saket.txt saket@cseproj83.cse.iitk.ac.in'
+
+alias menu='. ~/scripts/menu.sh'
+
+alias bashrc='code . ~/.bashrc'
+alias compose='docker-compose up &'
+alias lamp='start docker ; cd ~/develop/lamp; compose'
+alias iniciarlaravel='php artisan serve &'
+
+
+alias install_laravel='composer create-project --prefer-dist laravel/laravel'
+
+alias  djstart='python manage.py runserver'
+alias venv-activate='source venv/bin/activate'
+
