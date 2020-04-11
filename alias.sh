@@ -93,12 +93,11 @@ alias menu='. ~/scripts/menu.sh'
 
 alias bashrc='code . ~/.bashrc'
 alias compose='docker-compose up &'
-alias lamp='start docker ; cd ~/develop/lamp; compose'
+# alias lamp='start docker ; cd ~/develop/lamp; compose'
 alias iniciarlaravel='php artisan serve &'
 
 
 alias install_laravel='composer create-project --prefer-dist laravel/laravel'
 
-alias  djstart='python manage.py runserver'
+alias ngs='ng serve'
 alias venv-activate='source venv/bin/activate'
-

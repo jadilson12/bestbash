@@ -158,34 +158,6 @@ compress() {
 }
 #}}}
 
-# CONVERT TO ISO {{{
-to_iso () {
-  if [[ $# == 0 || $1 == "--help" || $1 == "-h" ]]; then
-    echo -e "Converts raw, bin, cue, ccd, img, mdf, nrg cd/dvd image files to ISO image file.\nUsage: to_iso file1 file2..."
-  fi
-  for i in $*; do
-    if [[ ! -f "$i" ]]; then
-      echo "'$i' is not a valid file; jumping it"
-    else
-      echo -n "converting $i..."
-      OUT=`echo $i | cut -d '.' -f 1`
-      case $i in
-        *.raw ) bchunk -v $i $OUT.iso;; #raw=bin #*.cue #*.bin
-        *.bin|*.cue ) bin2iso $i $OUT.iso;;
-        *.ccd|*.img ) ccd2iso $i $OUT.iso;; #Clone CD images
-        *.mdf ) mdf2iso $i $OUT.iso;; #Alcohol images
-        *.nrg ) nrg2iso $i $OUT.iso;; #nero images
-        * ) echo "to_iso don't know de extension of '$i'";;
-      esac
-      if [[ $? != 0 ]]; then
-        echo -e "${R}ERROR!${W}"
-      else
-        echo -e "${G}done!${W}"
-      fi
-    fi
-  done
-}
-#}}}
 
 # REMIND ME, ITS IMPORTANT! {{{
 # usage: remindme <time> <text>
@@ -210,18 +182,6 @@ remindme() {
 
 #}}}
 
-# SIMPLE CALCULATOR #{{{
-# usage: calc <equation>
-calc() {
-  if which bc &>/dev/null; then
-    echo "scale=3; $*" | bc -l
-  else
-    awk "BEGIN { print $* }"
-  fi
-}
-#}}}
-
-# FILE & STRINGS RELATED FUNCTIONS {{{
 
 ## FIND A FILE WITH A PATTERN IN NAME {{{
 ff() { find . -type f -iname '*'$*'*' -ls ; }
@@ -231,40 +191,7 @@ ff() { find . -type f -iname '*'$*'*' -ls ; }
 fe() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
 #}}}
 
-## MOVE FILENAMES TO LOWERCASE {{{
-lowercase() {
-  for file ; do
-    filename=${file##*/}
-    case "$filename" in
-      */* ) dirname==${file%/*} ;;
-      * ) dirname=.;;
-    esac
-    nf=$(echo $filename | tr A-Z a-z)
-    newname="${dirname}/${nf}"
-    if [[ "$nf" != "$filename" ]]; then
-      mv "$file" "$newname"
-      echo "lowercase: $file --> $newname"
-    else
-      echo "lowercase: $file not changed."
-    fi
-  done
-}
-#}}}
 
-## SWAP 2 FILENAMES AROUND, IF THEY EXIST {{{
-#(from Uzi's bashrc).
-swap() {
-  local TMPFILE=tmp.$$
-
-  [[ $# -ne 2 ]] && echo "swap: 2 arguments needed" && return 1
-  [[ ! -e $1 ]] && echo "swap: $1 does not exist" && return 1
-  [[ ! -e $2 ]] && echo "swap: $2 does not exist" && return 1
-
-  mv "$1" $TMPFILE
-  mv "$2" "$1"
-  mv $TMPFILE "$2"
-}
-#}}}
 
 ## FINDS DIRECTORY SIZES AND LISTS THEM FOR THE CURRENT DIRECTORY {{{
 dirsize () {
@@ -340,12 +267,12 @@ vim()
 
 function proxy_on() {
      export http_proxy=http://aluno:123456@10.9.0.1:8080
-    export https_proxy=$http_proxy 
-    export ftp_proxy=$http_proxy 
-    export rsync_proxy=$http_proxy 
-    export HTTP_PROXY=$http_proxy 
-    export HTTPS_PROXY=$http_proxy 
-    export FTP_PROXY=$http_proxy 
+    export https_proxy=$http_proxy
+    export ftp_proxy=$http_proxy
+    export rsync_proxy=$http_proxy
+    export HTTP_PROXY=$http_proxy
+    export HTTPS_PROXY=$http_proxy
+    export FTP_PROXY=$http_proxy
     export RSYNC_PROXY=$http_proxy
     Defaults env_keep += $http_proxy
     echo -e "Proxy Enable."
@@ -353,7 +280,7 @@ function proxy_on() {
 
 function proxy_off(){
     unset http_proxy https_proxy ftp_proxy rsync_proxy \
-          HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY env_keep 
+          HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY env_keep
     echo -e "Proxy environment variable removed."
 }
 
@@ -379,11 +306,11 @@ password_view(){
   clear
   aircrack-ng -w '/home/j144df/Downloads/unidesc/SecLists-master/Passwords/senha.txt'  /home/j144df/Downloads/unidesc/wpa.bad.passphrase.cap
 
- 
+
 }
 upadb(){
   adb push aosp/out/target/product/sanders/Havoc*.zip /sdcard
- 
+
 }
 rcadb(){
   adb reboot recovery
@@ -407,20 +334,7 @@ mp3 () {
 	youtube-dl --ignore-errors -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o '~/Music/youtube/%(title)s.%(ext)s' "$1"
 }
 
-function _update_ps1() {
-    PS1=$(powerline-shell $?)
-}
 
-if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
-
-if [ -f `which powerline-daemon` ]; then
-  powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-. /usr/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
-fi
   # RUBY {{{
     if which ruby &>/dev/null; then
       GEM_DIR=$(ruby -r rubygems -e 'puts Gem.user_dir')/bin
@@ -926,7 +840,9 @@ fi
     ssh-add ~/.ssh/acer
   }
 
-#}}}
-#}}} https://askubuntu.com/questions/969222/touchpad-tap-to-click-enable-two-finger-tap-for-right-click-but-disable-one-fin
-#}}}
-synclient TapButton1=1
+
+function top() {
+    synclient TapButton1=1
+}
+top
+
