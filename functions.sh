@@ -302,16 +302,6 @@ wife_stop(){
 
 }
 
-password_view(){
-  clear
-  aircrack-ng -w '/home/j144df/Downloads/unidesc/SecLists-master/Passwords/senha.txt'  /home/j144df/Downloads/unidesc/wpa.bad.passphrase.cap
-
-
-}
-upadb(){
-  adb push aosp/out/target/product/sanders/Havoc*.zip /sdcard
-
-}
 rcadb(){
   adb reboot recovery
 }
@@ -834,15 +824,18 @@ mp3 () {
   #}}}
 #}}}
 
-# Start ssh-agent {{{
+# priv  Start ssh-agent {{{
  function sshEnable(){
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/acer
   }
 
+# end ssh-agent }}}
 
+# start setting from notebook acer {{{
 function top() {
     synclient TapButton1=1
 }
 top
 
+# end setting from notebook acer}}}
