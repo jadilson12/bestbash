@@ -601,6 +601,7 @@ bit() {
         echo "  --init                                              # Autoconfigure git options"
         echo "  a, [add] <files> [--all]                            # Add git files"
         echo "  c, [commit] <text> [--undo]                         # Add git files"
+        echo "  cls, [clear]                                        # Delete unstable all"
         echo "  C, [cherry-pick] <number> <url> [branch]            # Cherry-pick commit"
         echo "  b, [branch] feature|hotfix|<name>                   # Add/Change Branch"
         echo "  d, [delete] <branch>                                # Delete Branch"
@@ -653,6 +654,11 @@ bit() {
             else
                 git add $2
             fi
+        ;;
+        cls| clear)
+            git add .
+            git checkout -f
+            
         ;;
         b | branch )
             check_branch=`git branch | grep $2`
