@@ -1,11 +1,9 @@
 # ALIAS {{{
 alias freemem='sudo /sbin/sysctl -w vm.drop_caches=3'
 alias enter_matrix='echo -e "\e[32m"; while :; do for i in {1..16}; do r="$(($RANDOM % 2))"; if [[ $(($RANDOM % 5)) == 1 ]]; then if [[ $(($RANDOM % 4)) == 1 ]]; then v+="\e[1m $r   "; else v+="\e[2m $r   "; fi; else v+="     "; fi; done; echo -e "$v"; v=""; done'
-# GIT_OR_HUB {{{
-if which hub &>/dev/null; then
-  alias git=hub
-fi
+
 #}}}
+
 # AUTOCOLOR {{{
 alias ls='ls --color=auto'
 alias dir='dir --color=auto'
@@ -14,6 +12,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 #}}}
+
 # MODIFIED COMMANDS {{{
 alias ..='cd ..'
 alias ....='cd ../..'
@@ -32,72 +31,91 @@ alias c='clear && clear'
 alias .bashrc="vim ~/.bashrc"
 alias exho='echo'
 alias gcp='git cherry-pick'
-
 #}}}
-# PRIVILEGED ACCESS {{{
-if ! $_isroot; then
-  alias sudo='sudo '
-  alias scat='sudo cat'
-  alias svim='sudoedit'
-  alias root='sudo su'
-  alias reboot='sudo reboot'
-  alias halt='sudo halt'
-  alias powertop='sudo powertop'
-fi
+
 # PACMAN ALIASES {{{
 # we're on ARCH
 if $_isarch; then
-  # we're not root
-  if ! $_isroot; then
-    alias pacman='sudo pacman'
-  fi
-  alias pacupg='pacman -Syu'            # Synchronize with repositories and then upgrade packages that are out of date on the local system.
-  alias pacupd='pacman -Sy'             # Refresh of all package lists after updating /etc/pacman.d/mirrorlist
-  alias pacin='pacman -S'               # Install specific package(s) from the repositories
-  alias pacinu='pacman -U'              # Install specific local package(s)
-  alias pacre='pacman -R'               # Remove the specified package(s), retaining its configuration(s) and required dependencies
-  alias pacun='pacman -Rcsn'            # Remove the specified package(s), its configuration(s) and unneeded dependencies
-  alias pacinfo='pacman -Si'            # Display information about a given package in the repositories
-  alias pacse='pacman -Ss'              # Search for package(s) in the repositories
-
-  alias pacupa='pacman -Sy && sudo abs' # Update and refresh the local package and ABS databases against repositories
-  alias pacind='pacman -S --asdeps'     # Install given package(s) as dependencies of another package
-  alias pacclean="pacman -Sc"           # Delete all not currently installed package files
-  alias pacmake="makepkg -fcsi"         # Make package from PKGBUILD file in current directory
-  alias changemirror='svim /etc/pacman.d/mirrorlist'
+    # we're not root
+    if ! $_isroot; then
+        alias pacman='sudo pacman'
+    fi
+    alias pacupg='pacman -Syu'            # Synchronize with repositories and then upgrade packages that are out of date on the local system.
+    alias pacupd='pacman -Sy'             # Refresh of all package lists after updating /etc/pacman.d/mirrorlist
+    alias pacin='pacman -S'               # Install specific package(s) from the repositories
+    alias pacinu='pacman -U'              # Install specific local package(s)
+    alias pacre='pacman -R'               # Remove the specified package(s), retaining its configuration(s) and required dependencies
+    alias pacun='pacman -Rcsn'            # Remove the specified package(s), its configuration(s) and unneeded dependencies
+    alias pacinfo='pacman -Si'            # Display information about a given package in the repositories
+    alias pacse='pacman -Ss'              # Search for package(s) in the repositories
+    alias pacupa='pacman -Sy && sudo abs' # Update and refresh the local package and ABS databases against repositories
+    alias pacind='pacman -S --asdeps'     # Install given package(s) as dependencies of another package
+    alias pacclean="pacman -Sc"           # Delete all not currently installed package files
+    alias pacmake="makepkg -fcsi"         # Make package from PKGBUILD file in current directory
+    alias changemirror='svim /etc/pacman.d/mirrorlist'
 fi
 #}}}
+
 # MULTIMEDIA {{{
 if which get_flash_videos &>/dev/null; then
-  alias gfv='get_flash_videos -r 720p --subtitles'
+    alias gfv='get_flash_videos -r 720p --subtitles'
 fi
 #}}}
-# LS {{{
+
+# MISC {{{
 alias ls='ls -hF --color=auto'
 alias l='ls -hF --color=auto'
+alias lr='ls -R'      # recursive ls
+alias ll='ls -alh'
+alias la='ll -A'
+alias lm='la | less'
+alias utime='sudo ntpdate pool.ntp.org'
+alias sshlogin='ssh -i ~/sshkey/saket.txt saket@cseproj83.cse.iitk.ac.in'
+alias bashrc='code . ~/.bashrc'
+alias compose='docker-compose up &'
+
+# ALIAS {{{
+alias freemem='sudo /sbin/sysctl -w vm.drop_caches=3'
+alias enter_matrix='echo -e "\e[32m"; while :; do for i in {1..16}; do r="$(($RANDOM % 2))"; if [[ $(($RANDOM % 5)) == 1 ]]; then if [[ $(($RANDOM % 4)) == 1 ]]; then v+="\e[1m $r   "; else v+="\e[2m $r   "; fi; else v+="     "; fi; done; echo -e "$v"; v=""; done'
+# GIT_OR_HUB {{{
+if which hub &>/dev/null; then
+    alias git=hub
+fi
+#}}}
+
+# AUTOCOLOR {{{
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+#}}}
+
+
+# PRIVILEGED ACCESS {{{
+if ! $_isroot; then
+    alias sudo='sudo '
+    alias scat='sudo cat'
+    alias svim='sudo vim'
+    alias root='sudo su'
+    alias reboot='sudo reboot'
+    alias halt='sudo halt'
+fi
+#}}}
+
+
+# MULTIMEDIA {{{
+if which get_flash_videos &>/dev/null; then
+    alias gfv='get_flash_videos -r 720p --subtitles'
+fi
+#}}}
+
+
+# LS {{{
+alias ls='ls -hF --color=auto'
 alias lr='ls -R'                    # recursive ls
 alias ll='ls -alh'
 alias la='ll -A'
 alias lm='la | less'
-
-
-#alias for activating env1
-#python virtualenv alias
-alias venv='source ~/env1/bin/activate'
-alias notes='vim ~/notes.txt'
-alias speedtest=~/speedtest
-alias utime='sudo ntpdate pool.ntp.org'
-alias sshlogin='ssh -i ~/sshkey/saket.txt saket@cseproj83.cse.iitk.ac.in'
-
-alias menu='. ~/scripts/menu.sh'
-
-alias bashrc='code . ~/.bashrc'
-alias compose='docker-compose up &'
-# alias lamp='start docker ; cd ~/develop/lamp; compose'
-alias iniciarlaravel='php artisan serve &'
-
-
-alias install_laravel='composer create-project --prefer-dist laravel/laravel'
-
-alias ngs='ng serve'
-alias venv-activate='source venv/bin/activate'
+#}}}

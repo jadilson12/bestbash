@@ -13,7 +13,6 @@ _isroot=false
 # }}}
 
 
-
 # BASH OPTIONS {{{
 shopt -s cdspell                 # Correct cd typos
 shopt -s checkwinsize            # Update windows size on command
@@ -22,56 +21,61 @@ shopt -s cmdhist                 # Bash attempts to save all lines of a multiple
 shopt -s expand_aliases
 shopt -s extglob                 # Extended pattern
 shopt -s no_empty_cmd_completion # No empty completion
+#}}}
+
 # COMPLETION {{{
 complete -cf sudo
 if [[ -f /etc/bash_completion ]]; then
-  . /etc/bash_completion
-fi
-#}}}
-#}}}
-# CONFIG {{{
-export PATH=/usr/local/bin:$PATH
-if [[ -d "$HOME/bin" ]] ; then
-  PATH="$HOME/bin:$PATH"
-fi
-# RUBY {{{
-#if which ruby &>/dev/null; then
-# GEM_DIR=$(ruby -rubygems -e 'puts Gem.user_dir')/bin
-#  if [[ -d "$GEM_DIR" ]]; then
-#    export PATH=$GEM_DIR:$PATH
-#  fi
-#fi
-#}}}
-# NVM {{{
-if [[ -f "/usr/share/nvm/nvm.sh" ]]; then
-  source /usr/share/nvm/init-nvm.sh
-fi
-#}}}
-# CHRUBY {{{
-if [[ -f "/usr/share/chruby/chruby.sh" ]]; then
-  source /usr/share/chruby/chruby.sh
-fi
-#}}}
-# VTE {{{
-if [[ -f "/etc/profile.d/vte.sh" ]]; then
-  . /etc/profile.d/vte.sh
-fi
-#}}}
-# ANDROID SDK {{{
-if [[ -d "/opt/android-sdk" ]]; then
-  export ANDROID_HOME=/opt/android-sdk
+    . /etc/bash_completion
 fi
 #}}}
 
-# EDITOR {{{
-if which vim &>/dev/null; then
-  export EDITOR="vim"
-elif which emacs &>/dev/null; then
-  export EDITOR="emacs -nw"
-else
-  export EDITOR="nano"
+
+# CONFIG {{{
+export PATH=/usr/local/bin:$PATH
+if [[ -d "$HOME/bin" ]] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# NVM {{{
+if [[ -f "/usr/share/nvm/nvm.sh" ]]; then
+    source /usr/share/nvm/init-nvm.sh
 fi
 #}}}
+
+
+# CHRUBY {{{
+if [[ -f "/usr/share/chruby/chruby.sh" ]]; then
+    source /usr/share/chruby/chruby.sh
+fi
+#}}}
+
+
+# VTE {{{
+if [[ -f "/etc/profile.d/vte.sh" ]]; then
+    . /etc/profile.d/vte.sh
+fi
+#}}}
+
+
+# ANDROID SDK {{{
+if [[ -d "/opt/android-sdk" ]]; then
+    export ANDROID_HOME=/opt/android-sdk
+fi
+#}}}
+
+
+# EDITOR {{{
+if which vim &>/dev/null; then
+    export EDITOR="vim"
+    elif which emacs &>/dev/null; then
+    export EDITOR="emacs -nw"
+else
+    export EDITOR="nano"
+fi
+#}}}
+
+
 # BASH HISTORY {{{
 # make multiple shells share the same history file
 export HISTSIZE=1000            # bash history will save N commands
